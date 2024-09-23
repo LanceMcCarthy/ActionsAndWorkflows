@@ -22,14 +22,13 @@ jobs:
         fetch-depth: 0
 
     - name: Get Today's Date
-      shell: pwsh
       id: date-checker
       run: |
         $buildDay = Get-Date -Format "yyyy.Mdd"
-        echo "TODAYS_DATE=$buildDay" >> $GITHUB_OUTPUT
+        $buildDayString = $buildDay.ToString()
+        echo "TODAYS_DATE=$buildDayString" >> $GITHUB_OUTPUT
 
     - name: Generate Version Number
-      shell: pwsh
       id: version-number-creator
       run: |
         $ver = ${{steps.date-checker.outputs.TODAYS_DATE}} + "." + $env:GITHUB_RUN_NUMBER + ".0"
