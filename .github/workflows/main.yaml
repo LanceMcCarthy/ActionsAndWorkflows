@@ -8,7 +8,7 @@ on:
 
 jobs:
   say_todays_date:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - id: say-hello
       run: |
