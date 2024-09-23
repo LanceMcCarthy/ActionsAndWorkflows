@@ -14,9 +14,9 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+
     - id: create-greeting
-      uses: ./greeter
+      uses: ./.github/actions/greeter
 
     - name: Show Greeting
       run: |
