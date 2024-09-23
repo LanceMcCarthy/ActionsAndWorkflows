@@ -10,9 +10,13 @@ jobs:
   say_todays_date:
     runs-on: windows-latest
     steps:
+    - name: Set color
+      id: color-selector
+      run: echo "SELECTED_COLOR=green" >> "$GITHUB_OUTPUT"
+
     - id: say-hello
       run: |
-        echo "PARTA=$Hello" >> "$GITHUB_OUTPUT"
+        echo "PARTA=Hello" >> "$GITHUB_OUTPUT"
 
     - id: say-world
       run: |
@@ -24,4 +28,6 @@ jobs:
         echo "GREETING=$combinedGreeting" >> "$GITHUB_OUTPUT"
 
     - name: Show Greeting
-      run: echo "${{steps.create-greeting.outputs.GREETING}}"
+      run: |
+        echo "${{steps.create-greeting.outputs.GREETING}}"
+        echo "${{steps.color-selector.outputs.SELECTED_COLOR}}"
