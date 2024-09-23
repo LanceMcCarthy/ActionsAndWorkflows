@@ -31,7 +31,7 @@ jobs:
     - name: Generate Version Number
       id: version-number-creator
       run: |
-        $ver = ${{steps.date-checker.outputs.TODAYS_DATE}} + "." + $env:GITHUB_RUN_NUMBER + ".0"
+        $ver = "${{steps.date-checker.outputs.TODAYS_DATE}}" + "." + $env:GITHUB_RUN_NUMBER + ".0"
         echo "VERSION_NUM=$ver" >> $GITHUB_OUTPUT
 
     - name: Show the date
