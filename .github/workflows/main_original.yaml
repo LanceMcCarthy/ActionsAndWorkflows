@@ -1,0 +1,38 @@
+name: Self-contained
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  say_todays_date:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - id: say-hello
+      shell: bash
+      run: |
+        word="Hello"
+        echo "PARTA=$word" >> "$GITHUB_OUTPUT"
+
+    - id: say-world
+      shell: bash
+      run: |
+        word="World"
+        echo "PARTB=$word" >> "$GITHUB_OUTPUT"
+
+    - id: create-greeting
+      shell: bash
+      run: |
+        combinedGreeting="${{steps.say-hello.outputs.PARTA}} ${{steps.say-world.outputs.PARTB}}"
+        echo "GREETING=$combinedGreeting" >> "$GITHUB_OUTPUT"
+
+    - name: Show Greeting
+      run: |
+        echo "${{steps.create-greeting.outputs.GREETING}}"
