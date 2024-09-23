@@ -10,20 +10,8 @@ jobs:
   say_todays_date:
     runs-on: ubuntu-latest
     steps:
-    - id: say-hello
-      run: |
-        word="Hello"
-        echo "PARTA=$word" >> "$GITHUB_OUTPUT"
-
-    - id: say-world
-      run: |
-        word="World"
-        echo "PARTB=$word" >> "$GITHUB_OUTPUT"
-
     - id: create-greeting
-      run: |
-        combinedGreeting="${{steps.say-hello.outputs.PARTA}} ${{steps.say-world.outputs.PARTB}}"
-        echo "GREETING=$combinedGreeting" >> "$GITHUB_OUTPUT"
+      uses: ./actions/say-hello-world
 
     - name: Show Greeting
       run: |
