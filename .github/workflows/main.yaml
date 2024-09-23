@@ -10,18 +10,20 @@ jobs:
   say_todays_date:
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Generate version number using date and run number
-      shell: pwsh
-      id: version-creator
+    - id: say-hello
       run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        $ver = $buildDay + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "APP_VERSION=$ver" >> $GITHUB_OUTPUT
+        $word = "Hello"
+        echo "PART=$word" >> $GITHUB_OUTPUT
 
-    - name: Show the date
-      run: echo "The date is ${{steps.version-creator.outputs.APP_VERSION}}"`
+    - id: say-world
+      run: |
+        $word = "World"
+        echo "PART=$word" >> $GITHUB_OUTPUT
+
+    - id: create-greeting
+      run: |
+        $combinedGreeting = "${{steps.say-hello.outputs.PART}} ${{steps.say-world.outputs.PART}}"
+        echo "GREETING=$combinedGreeting" >> $GITHUB_OUTPUT
+
+    - name: Show Greeting
+      run: echo "The date is ${{steps.create-greeting.outputs.GREETING}}"
