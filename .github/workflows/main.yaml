@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - id: create-greeting
-      uses: ./actions/say-hello-world
+      uses: ./greeter
 
     - name: Show Greeting
       run: |
