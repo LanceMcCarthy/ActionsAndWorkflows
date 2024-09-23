@@ -12,17 +12,15 @@ jobs:
     steps:
     - id: say-hello
       run: |
-        $word = "Hello"
-        echo "PART=$word" >> "$GITHUB_OUTPUT"
+        echo "PARTA=$Hello" >> "$GITHUB_OUTPUT"
 
     - id: say-world
       run: |
-        $word = "World"
-        echo "PART=$word" >> "$GITHUB_OUTPUT"
+        echo "PARTB=World" >> "$GITHUB_OUTPUT"
 
     - id: create-greeting
       run: |
-        $combinedGreeting="${{steps.say-hello.outputs.PART}} ${{steps.say-world.outputs.PART}}"
+        $combinedGreeting="${{steps.say-hello.outputs.PARTA}} ${{steps.say-world.outputs.PARTB}}"
         echo "GREETING=$combinedGreeting" >> "$GITHUB_OUTPUT"
 
     - name: Show Greeting
