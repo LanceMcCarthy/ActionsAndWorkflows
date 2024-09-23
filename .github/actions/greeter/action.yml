@@ -14,16 +14,19 @@ runs:
   using: "composite"
   steps:
     - id: say-hello
+      shell: bash
       run: |
         word="Hello"
         echo "PARTA=$word" >> "$GITHUB_OUTPUT"
 
     - id: say-world
+      shell: bash
       run: |
         word="World"
         echo "PARTB=$word" >> "$GITHUB_OUTPUT"
 
     - id: create-greeting
+      shell: bash
       run: |
         combinedGreeting="${{steps.say-hello.outputs.PARTA}} ${{steps.say-world.outputs.PARTB}}"
         echo "GREETING=$combinedGreeting" >> "$GITHUB_OUTPUT"
