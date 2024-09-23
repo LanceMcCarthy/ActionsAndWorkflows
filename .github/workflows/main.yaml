@@ -1,39 +1,30 @@
 name: My Main Workflow
 
 on:
-  # This allow for manual execution in the GitHub GUI
   workflow_dispatch:
-
-  # This will trigger the workflow on push 
   push:
-    # but only when there is a push to main branch
     branches:
       - main
 
-# this is an array of jobs, you can have multiple jobs that run in parallel or sequentially with dependencies on each other
 jobs:
-  # Name of the job
   say_todays_date:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Get Today's Date
-      shell: pwsh
-      id: date-checker
+    - id: say-hello
       run: |
-        $buildDay = Get-Date -Format "yyyy.Mdd"
-        echo "TODAYS_DATE=$buildDay" >> $GITHUB_OUTPUT
+        word="Hello"
+        echo "PARTA=$word" >> "$GITHUB_OUTPUT"
 
-    - name: Generate Version Number
-      shell: pwsh
-      id: version-number-creator
+    - id: say-world
       run: |
-        $ver = ${{steps.date-checker.outputs.TODAYS_DATE}} + "." + $env:GITHUB_RUN_NUMBER + ".0"
-        echo "VERSION_NUM=$ver" >> $GITHUB_OUTPUT
+        word="World"
+        echo "PARTB=$word" >> "$GITHUB_OUTPUT"
 
-    - name: Show the date
-      run: echo "The date is ${{steps.version-number-creator.outputs.VERSION_NUM}}"`
+    - id: create-greeting
+      run: |
+        combinedGreeting="${{steps.say-hello.outputs.PARTA}} ${{steps.say-world.outputs.PARTB}}"
+        echo "GREETING=$combinedGreeting" >> "$GITHUB_OUTPUT"
+
+    - name: Show Greeting
+      run: |
+        echo "${{steps.create-greeting.outputs.GREETING}}"
