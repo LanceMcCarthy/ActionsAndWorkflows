@@ -1,4 +1,4 @@
-name: My Main Workflow
+name: Using a Reusable Action
 
 on:
   workflow_dispatch:
